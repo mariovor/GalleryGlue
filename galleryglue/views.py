@@ -1,11 +1,15 @@
 from . import app
-from . import GALLERIES_PATH
+from . import ADAPTER, GALLERIES_PATH
+from flask import render_template
 
-from .adapter.lightroom import lightroom
+from .adapter.lightroom import Lightroom
 
 
 @app.route('/')
 def index():
-    lightroom(GALLERIES_PATH)
+    provider = None
 
-    return app.settings['Paths']['Galleries']
+    if ADAPTER == 'Lightroom':
+        provider = Lightroom(GALLERIES_PATH)
+
+    return render_template('layout.html', galleries=provider.galleries)

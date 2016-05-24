@@ -1,0 +1,16 @@
+<DOCTYPE html>
+<html>
+    <head>
+        <title>Gallery Glue</title>
+    </head>
+    <body>
+        {% block content %}
+            <ul>
+                {% for gallery in galleries %}
+                    <li><a href="{{ gallery }}">{{ gallery }}</a></li>
+                {% endfor %}
+            </ul>
+            
+        {% endblock content %}
+    </body>
+</html>

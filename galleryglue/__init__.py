@@ -13,6 +13,9 @@ GALLERY_GLUE_PATH = os.environ.get('GALLERY_GLUE_PATH', PACKAGE_PATH)
 app.settings = ConfigParser()
 app.settings.read(os.path.join(GALLERY_GLUE_PATH, 'config.ini'))
 
+# Extract Adapter
+ADAPTER = app.settings['General']['Adapter']
+
 # Normalize Paths
 for key in app.settings['Paths']:
     os.path.normpath(app.settings['Paths'][key])
@@ -26,11 +29,6 @@ if 'GalleriesFolderName' not in app.settings['General']:
 GALLERIES_PATH = os.path.join(GALLERY_GLUE_PATH, app.settings['General']['GalleriesFolderName'])
 if app.settings['General']['GalleriesOnDifferentPath'] == 'yes':
     GALLERIES_PATH = os.path.join(GALLERY_GLUE_PATH, app.settings['Paths']['Galleries'], app.settings['General']['GalleriesFolderName'])
-
-
-print(app.settings['General']['GalleriesFolderName'])
-print(GALLERIES_PATH)
-
 
 # Load views
 from .views import *  # noqa
